@@ -168,27 +168,31 @@ function App() {
           )}
 
           {result && (
-            <div className={`mt-6 p-4 rounded border text-center font-bold text-lg ${
+            <div className={`mt-6 p-5 rounded-lg border text-center ${
               result.prediction === 'Fake' 
-                ? 'bg-red-100 dark:bg-red-950/50 text-red-800 dark:text-red-400 border-red-300 dark:border-red-900' 
-                : 'bg-green-100 dark:bg-green-950/50 text-green-800 dark:text-green-400 border-green-300 dark:border-green-900'
+                ? 'bg-red-50 dark:bg-red-950/30 text-red-900 dark:text-red-300 border-red-200 dark:border-red-900/50' 
+                : 'bg-green-50 dark:bg-green-950/30 text-green-900 dark:text-green-300 border-green-200 dark:border-green-900/50'
             }`}>
-              <div className="mb-2">Prediction: This article is likely {result.prediction.toUpperCase()}</div>
+              <div className="flex items-center justify-center gap-2 mb-3">
+                {result.prediction === 'Fake' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-600 dark:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600 dark:text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+                <h3 className="text-xl font-bold uppercase tracking-wide">
+                  {result.prediction === 'Fake' ? 'Likely Fake News' : 'Likely Real News'}
+                </h3>
+              </div>
               
-              {result.confidence && (
-                <div className="w-full max-w-md mx-auto mt-3">
-                  <div className="flex justify-between text-xs mb-1 font-semibold">
-                    <span>Confidence Score</span>
-                    <span>{result.confidence}%</span>
-                  </div>
-                  <div className="w-full bg-white dark:bg-zinc-950 bg-opacity-50 rounded-full h-2.5 border border-black dark:border-white border-opacity-10 dark:border-opacity-10">
-                    <div 
-                      className={`h-2.5 rounded-full transition-all duration-1000 ${result.prediction === 'Fake' ? 'bg-red-500' : 'bg-green-500'}`} 
-                      style={{ width: `${result.confidence}%` }}
-                    ></div>
-                  </div>
-                </div>
-              )}
+              <p className="text-sm opacity-90 max-w-lg mx-auto leading-relaxed">
+                {result.prediction === 'Fake' 
+                  ? 'Our AI analysis detected strong linguistic patterns and structural markers commonly found in deceptive or fabricated articles.' 
+                  : 'Our AI analysis indicates this text\'s writing style and structure align closely with standard, factual journalistic reporting.'}
+              </p>
             </div>
           )}
         </div>
