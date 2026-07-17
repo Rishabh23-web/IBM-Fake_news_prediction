@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: fake-news-api
+    env: python
+    region: ohio
+    buildCommand: pip install -r model_api/requirements.txt
+    startCommand: cd model_api && gunicorn app:app
